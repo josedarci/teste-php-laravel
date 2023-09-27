@@ -30,4 +30,83 @@
         </form>
     </div>
 </div>
+<br>
+<br>
+<div style="width:800px;margin-left:30%;margin-top:10px" class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="col-md-6 border rounded shadow mt-4">
+        <h2 class="text-center">Itens da Fila</h2><br>
+        <div style="display: flex; justify-content: center; align-items: center; ">
+            <button type="button" id="processarFilaBtn" style="margin-bottom: 20px;" class="btn btn-primary text-white bg-blue-500 hover:bg-blue-600 border-none py-2 px-4 rounded-lg text-center text-base" onclick="processarFila()">Processar Fila</button>
+        </div>
+
+        <table style="border-collapse: collapse;background: #FFFFF0;" class="table">
+            <thead>
+                <tr>
+                    <th style=" border: 1px solid black;background: #F0FFF0;" scope="col">Categoria</th>
+                    <th style=" border: 1px solid black;background: #F0FFF0;" scope="col">Título</th>
+                    <th style=" border: 1px solid black;background: #F0FFF0;" scope="col">Conteúdo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{-- Verificar se $itemsDaFila está definido e não vazio --}}
+                @if (!empty($itemsDaFila))
+                {{-- Loop para exibir itens da fila --}}
+                @foreach ($itemsDaFila as $item)
+                <tr scope="row">
+                    <td style="border: 1px solid black;">{{ $item['categoria'] }}</td>
+                    <td style="border: 1px solid black;">{{ $item['titulo'] }}</td>
+                    <td style="border: 1px solid black;">{{ $item['conteúdo'] }}</td>
+                </tr>
+                @endforeach
+                @else
+                <tr scope="row">
+                    <td colspan="3" style="border: 1px solid black;" class="text-center">Nenhum item na fila no momento.</td>
+                </tr>
+                @endif
+            </tbody>
+        </table>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+
+                var processarFilaBtn = document.getElementById("processarFilaBtn");
+                processarFilaBtn.addEventListener("click", function() {
+                    processarFila();
+                });
+            });
+
+            function processarFila() {
+
+                var xhr = new XMLHttpRequest();
+
+
+                xhr.open("POST", "{{ route('import.processarFila') }}", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.setRequestHeader("X-CSRF-TOKEN", "{{ csrf_token() }}");
+
+
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+
+                        var response = JSON.parse(xhr.responseText);
+                        console.log(response);
+                    } else {
+
+                        console.error("Erro na solicitação AJAX");
+                    }
+                };
+
+
+                xhr.onerror = function() {
+                    console.error("Erro na solicitação AJAX");
+                };
+
+
+                var data = {};
+                xhr.send(JSON.stringify(data));
+            }
+        </script>
+
+    </div>
+</div>
+
 @endsection

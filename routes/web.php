@@ -29,7 +29,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/import', [ImportController::class, 'index'])->name('import.index');
     
     Route::post('/import', [ImportController::class, 'process'])->name('import.process');
+    Route::post('/processar-fila', [ImportController::class, 'processarFila'])->name('import.processarFila');
    
+
 
 
 });

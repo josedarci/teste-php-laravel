@@ -25,8 +25,8 @@ class ProcessJsonDataJob implements ShouldQueue
     public function handle()
     {
         try {
-            // Coloque os dados na fila para processamento posterior
-            dispatch(new ProcessDataLater($this->data));
+           
+             //dispatch(new ProcessDataLater($this->data));
 
             // Log de sucesso
             Log::info('Dados enfileirados com sucesso: ' . json_encode($this->data));
