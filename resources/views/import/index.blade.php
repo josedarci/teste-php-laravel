@@ -36,7 +36,7 @@
     <div class="col-md-6 border rounded shadow mt-4">
         <h2 class="text-center">Itens da Fila</h2><br>
         <div style="display: flex; justify-content: center; align-items: center; ">
-            <button type="button" id="processarFilaBtn" style="margin-bottom: 20px;" class="btn btn-primary text-white bg-blue-500 hover:bg-blue-600 border-none py-2 px-4 rounded-lg text-center text-base" onclick="processarFila()">Processar Fila</button>
+            <button type="button" id="processarFilaBtn" onclick="processarFila();" style="margin-bottom: 20px;" class="btn btn-primary text-white bg-blue-500 hover:bg-blue-600 border-none py-2 px-4 rounded-lg text-center text-base" onclick="processarFila()">Processar Fila</button>
         </div>
 
         <table style="border-collapse: collapse;background: #FFFFF0;" class="table">
@@ -66,16 +66,16 @@
             </tbody>
         </table>
         <script>
-            document.addEventListener("DOMContentLoaded", function() {
+            /*document.addEventListener("DOMContentLoaded", function() {
 
                 var processarFilaBtn = document.getElementById("processarFilaBtn");
                 processarFilaBtn.addEventListener("click", function() {
                     processarFila();
                 });
-            });
+            });*/
 
             function processarFila() {
-
+                console.log('processarFila -> ok');
                 var xhr = new XMLHttpRequest();
 
 
@@ -87,7 +87,7 @@
                 xhr.onload = function() {
                     if (xhr.status === 200) {
 
-                        var response = JSON.parse(xhr.responseText);
+                        var response = xhr.responseText;
                         console.log(response);
                     } else {
 

@@ -6,11 +6,12 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Document;
+use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
 
 class ProcessDataLater
 {
-    use Dispatchable, InteractsWithQueue, SerializesModels;
+    use Dispatchable, InteractsWithQueue,Queueable, SerializesModels;
 
     protected $data;
 
@@ -24,7 +25,7 @@ class ProcessDataLater
         try {
             // Verifica o valor de categoria e atribui o category_id correspondente
             $categoryId = ($this->data['categoria'] === 'Remessa Parcial') ? 1 : 2;
-
+            Log::info('Jobs ProcessDataLater recebe os dados da fila');
             // Exemplo de salvamento no banco de dados com category_id atribuído
             Document::create([
                 'category_id' => $categoryId,

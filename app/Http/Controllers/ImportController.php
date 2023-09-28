@@ -58,12 +58,14 @@ class ImportController extends Controller
 
     public function processarFila()
     {
+        
         $hasItemsInQueue = Queue::size('default') > 0;
         $hasItemsToProcess = count($this->itemsDaFila) > 0;
 
         if ($hasItemsInQueue || $hasItemsToProcess) {
             // Process the items from the queue, if any
             foreach ($this->itemsDaFila as $jobInfo) {
+                
                 ProcessDataLater::dispatch($jobInfo)->onQueue('default');
 
             }
