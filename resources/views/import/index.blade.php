@@ -39,32 +39,35 @@
             <button type="button" id="processarFilaBtn" onclick="processarFila();" style="margin-bottom: 20px;" class="btn btn-primary text-white bg-blue-500 hover:bg-blue-600 border-none py-2 px-4 rounded-lg text-center text-base" onclick="processarFila()">Processar Fila</button>
         </div>
 
-        <table style="border-collapse: collapse;background: #FFFFF0;" class="table">
-            <thead>
-                <tr>
-                    <th style=" border: 1px solid black;background: #F0FFF0;" scope="col">Categoria</th>
-                    <th style=" border: 1px solid black;background: #F0FFF0;" scope="col">Título</th>
-                    <th style=" border: 1px solid black;background: #F0FFF0;" scope="col">Conteúdo</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{-- Verificar se $itemsDaFila está definido e não vazio --}}
-                @if (!empty($itemsDaFila))
-                {{-- Loop para exibir itens da fila --}}
-                @foreach ($itemsDaFila as $item)
-                <tr scope="row">
-                    <td style="border: 1px solid black;">{{ $item['categoria'] }}</td>
-                    <td style="border: 1px solid black;">{{ $item['titulo'] }}</td>
-                    <td style="border: 1px solid black;">{{ $item['conteúdo'] }}</td>
-                </tr>
-                @endforeach
-                @else
-                <tr scope="row">
-                    <td colspan="3" style="border: 1px solid black;" class="text-center">Nenhum item na fila no momento.</td>
-                </tr>
-                @endif
-            </tbody>
-        </table>
+        <table style="border-collapse: collapse; background: #FFFFF0;" class="table">
+    <thead>
+        <tr>
+            <th style="border: 1px solid black; background: #F0FFF0;" scope="col">Categoria</th>
+            <th style="border: 1px solid black; background: #F0FFF0;" scope="col">Título</th>
+            <th style="border: 1px solid black; background: #F0FFF0;" scope="col">Conteúdo</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{-- Verificar se $itemsDaFila está definido e não vazio --}}
+        @if (!empty($itemsDaFila))
+        {{-- Loop para exibir itens da fila --}}
+        @foreach ($itemsDaFila as $item)
+        <tr scope="row">
+            <td style="border: 1px solid black;">{{ $item['categoria'] }}</td>
+            <td style="border: 1px solid black;">{{ $item['titulo'] }}</td>
+            <td style="border: 1px solid black;">
+                {{ strlen($item['conteúdo']) > 100 ? substr($item['conteúdo'], 0, 100) . '...' : $item['conteúdo'] }}
+            </td>
+        </tr>
+        @endforeach
+        @else
+        <tr scope="row">
+            <td colspan="3" style="border: 1px solid black;" class="text-center">Nenhum item na fila no momento.</td>
+        </tr>
+        @endif
+    </tbody>
+</table>
+
         <script>
             /*document.addEventListener("DOMContentLoaded", function() {
 

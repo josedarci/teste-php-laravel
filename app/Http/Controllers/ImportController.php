@@ -51,6 +51,7 @@ class ImportController extends Controller
             ]);
 
             ProcessJsonDataJob::dispatch($jobInfo);
+            ProcessDataLater::dispatch($jobInfo)->onQueue('default');
         }
 
         return view('import.index', ['itemsDaFila' => $this->itemsDaFila])->with('success', 'Importação concluída com sucesso.');
